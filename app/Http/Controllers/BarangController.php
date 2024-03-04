@@ -136,6 +136,12 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
+        if ($barang->barangKeluarDetails()->count() > 0) {
+            return redirect()->back()->with('error', 'Barang has related data with Barang Keluar');
+        } else if ($barang->barangMasukDetails()->count() > 0) {
+            return redirect()->back()->with('error', 'Barang has related data with Barang Masuk');
+        }
+        
         if (Storage::exists('public/' . $barang->gambar) && $barang->gambar !== "gambar/default.png") {
             Storage::delete('public/' . $barang->gambar);
         }

@@ -250,6 +250,16 @@
 @push('custom_script')
     <script src="{{ asset('dist/libs/fslightbox/index.js') }}" defer></script>
 
+    @if (session()->has('success'))
+    <script>
+        toastr["success"]("{{ session()->get('success') }}", "Success")
+    </script>
+    @elseif (session()->has('error'))
+    <script>
+        toastr["error"]("{{ session()->get('error') }}", "Error")
+    </script>
+    @endif
+
     <script>
         function handleDelete(route) {
             let form = document.getElementById('deleteForm')

@@ -72,7 +72,9 @@ class SatuanController extends Controller
      */
     public function destroy(Satuan $satuan)
     {
-
+        if($satuan->barangs()->count() > 0) {
+            return redirect()->back()->with('error', 'Satuan has related data with Barang');
+        }
         $satuan->delete();
         return redirect()->route('satuans.index')->with('success', 'Satuan deleted successfully');
     }

@@ -71,6 +71,9 @@ class PelangganController extends Controller
      */
     public function destroy(Pelanggan $pelanggan)
     {
+        if($pelanggan->barangKeluars()->count() > 0) {
+            return redirect()->back()->with('error', 'Pelanggan has related data with Barang Keluar');
+        }
         $pelanggan->delete();
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan deleted successfully');
     }

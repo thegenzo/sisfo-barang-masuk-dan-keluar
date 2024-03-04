@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pelanggan extends Model
 {
@@ -29,5 +30,10 @@ class Pelanggan extends Model
                 ->orWhere('notelp', 'like', '%' . $search . '%')
                 ->orWhere('alamat', 'like', '%' . $search . '%');
         });
+    }
+
+    public function barangKeluars(): HasMany
+    {
+        return $this->hasMany(BarangKeluar::class);
     }
 }

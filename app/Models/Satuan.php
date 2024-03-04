@@ -19,4 +19,9 @@ class Satuan extends Model
             $query->where('nama_satuan', 'like', '%' . $search . '%');
         });
     }
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class);
+    }
 }

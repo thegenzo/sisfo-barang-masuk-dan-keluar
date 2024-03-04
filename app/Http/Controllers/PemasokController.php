@@ -71,6 +71,9 @@ class PemasokController extends Controller
      */
     public function destroy(Pemasok $pemasok)
     {
+        if($pemasok->barangMasuks()->count() > 0) {
+            return redirect()->back()->with('error', 'Pemasok has related data with Barang Masuk');
+        }
         $pemasok->delete();
         return redirect()->route('pemasok.index')->with('success', 'Pemasok deleted successfully');
     }

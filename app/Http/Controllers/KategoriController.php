@@ -71,7 +71,9 @@ class KategoriController extends Controller
      */
     public function destroy(Kategori $kategori)
     {
-
+        if($kategori->barangs()->count() > 0) {
+            return redirect()->back()->with('error', 'Kategori has related data with Barang!');
+        }
         $kategori->delete();
         return redirect()->route('kategori.index')->with('success', 'Kategori deleted successfully');
     }
